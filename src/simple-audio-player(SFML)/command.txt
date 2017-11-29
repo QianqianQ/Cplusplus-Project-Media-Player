@@ -1,3 +1,0 @@
-g++ -c main.cpp
-g++ main.o -o app -lsfml-audio -lsfml-window -lsfml-system -lsfml-graphics
-./app
