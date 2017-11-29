@@ -17,7 +17,7 @@ int main()
     std::cout<<"Command:"<<std::endl;
     std::cout<<"N: Add new audio file(Only available when the exist music is stopped)"<<std::endl<<"P: Play the music"<<std::endl<<"White Space: Pause the music"<<std::endl<<"S: Stop the music"<<std::endl;
     std::cout<<"Up: Increase the volume"<<std::endl<<"Down: Reduce the volume"<<std::endl;
-    std::cout<<"Left: Playing position goes backward"<<std::endl<<"Right: Playing position goes forward"<<std::endl<<std::endl;
+    std::cout<<"Left: Fast backward"<<std::endl<<"Right: Fast forward"<<std::endl<<std::endl;
     std::string filename;
     std::cout<<"Please enter the file name: "<<std::endl;
     filename =add_file();
