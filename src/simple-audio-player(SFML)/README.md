@@ -9,5 +9,6 @@ The functions include:
 
 
 The supported audio file formats include: WAV, OGG/Vorbis and FLAC. 
+
 Note that due to licensing issues MP3 is not supported.
 
