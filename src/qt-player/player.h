@@ -3,6 +3,8 @@
 
 #include <QMainWindow>
 #include <QMediaPlayer>
+#include <QFileDialog>
+#include <QProgressBar>
 namespace Ui {
 class player;
 }
@@ -24,9 +26,12 @@ private slots:
 
     void on_volume_sliderMoved(int position);
 
+    void on_actionOpen_triggered();
+
 private:
     Ui::player *ui;
     QMediaPlayer *Player;
+    QProgressBar *bar;
 };
 
 #endif // PLAYER_H

@@ -5,6 +5,7 @@
 #include <QDir>
 #include <QFile>
 #include <QMediaContent>
+
 player::player(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::player)
@@ -14,7 +15,7 @@ player::player(QWidget *parent) :
     //QMediaContent file(QUrl::fromLocalFile(QFileInfo("test.wav").absoluteFilePath()));
     //Player->setMedia(file);
     //Player->setMedia(QMediaContent(QUrl::fromLocalFile(QFileInfo("test.wav").absoluteFilePath())));
-    Player->setMedia(QMediaContent(QUrl::fromLocalFile("C:\\Users\\Qianqian\\Desktop\\Cpp_project\\qt-player\\test.wav")));
+    //Player->setMedia(QMediaContent(QUrl::fromLocalFile("C:\\Users\\Qianqian\\Desktop\\Cpp_project\\qt-player\\test.wav")));
 }
 
 player::~player()
@@ -40,4 +41,12 @@ void player::on_stop_clicked()
 void player::on_volume_sliderMoved(int position)
 {
     Player->setVolume(position);
+}
+
+void player::on_actionOpen_triggered()
+{
+    QString file = QFileDialog::getOpenFileName(this,"Open an audio File");
+    on_stop_clicked();
+    Player->setMedia(QUrl::fromLocalFile(file));
+
 }
