@@ -11,6 +11,33 @@ std::string add_file()
     return filename;
 }
 
+// fast forward 
+void fast_forward(sf::Music &music)
+{
+    sf::Time newPos = music.getPlayingOffset() + sf::seconds(2);
+    music.setPlayingOffset(sf::Time(newPos));
+}
+
+// fast backward 
+void fast_backward(sf::Music &music)
+{
+    sf::Time newPos = music.getPlayingOffset() - sf::seconds(2);
+    if (newPos.asSeconds() <= 0.0f) newPos = sf::seconds(0);
+    	music.setPlayingOffset(sf::Time(newPos));
+}
+
+// increase volume
+void volume_increase(sf::Music &music)
+{
+    music.setVolume(music.getVolume() + 5);
+}
+
+// decrease volume
+void volume_decrease(sf::Music &music)
+{
+    music.setVolume(music.getVolume() - 5);
+}
+
 int main()
 {
     std::cout<<std::endl<<"Audio Player using SFML"<<std::endl<<std::endl;
@@ -30,12 +57,6 @@ int main()
     std::cout << " " << music.getDuration().asSeconds() << " seconds"<< std::endl; // get the duration
     sf::RenderWindow Window(sf::VideoMode(200,100), "Audio Player",sf::Style::Default); // Create the main window
 
-    // Load a sprite to display
-    /*sf::Texture texture;
-        if (!texture.loadFromFile("giphy.gif"))
-            return EXIT_FAILURE;
-    sf::Sprite sprite(texture);*/
-
     while (Window.isOpen()){
         sf::Event event;
 
@@ -44,7 +65,7 @@ int main()
         {
              while (Window.pollEvent(event)){
 
-                 // THe window is closed
+                 // The window is closed
                  if (event.type == sf::Event::Closed)
                  {
                      music.stop();
@@ -74,9 +95,10 @@ int main()
 
                     // Control volume
                     if (event.key.code == sf::Keyboard::Down)
-                      music.setVolume(music.getVolume() - 5);
+                      	volume_decrease(music);
+
                     if (event.key.code == sf::Keyboard::Up)
-                      music.setVolume(music.getVolume() + 5);
+                        volume_increase(music);
                 }
            }
         }
@@ -104,21 +126,19 @@ int main()
 
                     // Up and down to control volume
                     if (event.key.code == sf::Keyboard::Down)
-                         music.setVolume(music.getVolume() - 5);
+                         volume_decrease(music);
+
                     if (event.key.code == sf::Keyboard::Up)
-                         music.setVolume(music.getVolume() + 5);
+                         volume_increase(music);
 
 
                     // Left and right to control tracking position
                     if (event.key.code == sf::Keyboard::Right){
-                         sf::Time newPos = music.getPlayingOffset() + sf::seconds(2);
-                         music.setPlayingOffset(sf::Time(newPos));
+                         fast_forward(music);
                     }
 
                     if (event.key.code == sf::Keyboard::Left){
-                         sf::Time newPos = music.getPlayingOffset() - sf::seconds(2);
-                    if (newPos.asSeconds() <= 0.0f) newPos = sf::seconds(0);
-                         music.setPlayingOffset(sf::Time(newPos));
+                        fast_backward(music);
                     }
 
                     // Pause the music
@@ -149,22 +169,22 @@ int main()
 
                 // Up and down to control volume
                 if (event.key.code == sf::Keyboard::Down)
-                    music.setVolume(music.getVolume() - 5);
+                    volume_decrease(music);
+
                 if (event.key.code == sf::Keyboard::Up)
-                    music.setVolume(music.getVolume() + 5);
+                    volume_increase(music);
 
 
                 // Left and right to control tracking position
                 if (event.key.code == sf::Keyboard::Right){
-                    sf::Time newPos = music.getPlayingOffset() + sf::seconds(2);
-                    music.setPlayingOffset(sf::Time(newPos));
+                    fast_forward(music);
                 }
 
                 if (event.key.code == sf::Keyboard::Left){
-                    sf::Time newPos = music.getPlayingOffset() - sf::seconds(2);
-                    if (newPos.asSeconds() <= 0.0f) newPos = sf::seconds(0);
-                    music.setPlayingOffset(sf::Time(newPos));
+                    fast_backward(music);
                 }
+
+		// Change music state
                 if(event.key.code == sf::Keyboard::P){
                       music.play();
                 }
