@@ -1,7 +1,10 @@
 *.o
 moc_player.cpp
+qrc_resources.cpp
 ui_player.h
+qt-project
 .Rhistory
+Makefile
 **/build-qt-project-Desktop_Qt_5_5_1_MinGW_32bit-Debug/
 **/build-qt-project-Desktop-Debug/
 **/build-qt-project-Desktop_Qt_5_5_1_clang_64bit-Debug/
