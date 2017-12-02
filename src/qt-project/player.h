@@ -8,6 +8,7 @@
 #include <QSlider>
 #include <QAudioProbe>
 #include <QAudioBuffer>
+#include <QVector>
 namespace Ui {
 class Player;
 }
@@ -43,6 +44,12 @@ private:
     Ui::Player *ui;
     QMediaPlayer *player;
     QAudioProbe  *probe;
+
+    // Audio Buffer Data
+    QByteArray buffer;// buffer for copying audio
+    QVector<double> sample;// input for fft
+    QVector<double> spectrum;// output vector containing spectrum
+    //
 };
 
 #endif // PLAYER_H
