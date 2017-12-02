@@ -1,0 +1,51 @@
+
+*** These modified files were found in JOE when it aborted on Sat Dec  2 18:38:52 2017
+*** JOE was aborted by UNIX signal 1
+
+*** File '(Unnamed)'
+/m/home/home9/90/xuz2/unix/media-player-1/.git/COMMIT_EDITMSG
+
+*** File '/m/home/home9/90/xuz2/unix/media-player-1/.git/COMMIT_EDITMSG'
+Audiobuffer read succesffuly!
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+#
+# Committer: Xu Zhicun <xuz2@zirkoni.org.aalto.fi>
+#
+# On branch master
+# Your branch is behind 'origin/master' by 2 commits, and can be fast-forwarded.
+#   (use "git pull" to update your local branch)
+#
+# Changes to be committed:
+#	modified:   player.cpp
+#	modified:   player.h
+#
+# Changes not staged for commit:
+#	modified:   qt-project.pro.user
+#
+# Untracked files:
+#	../../.Rhistory
+#	../../plan/.Rhistory
+#	../build-qt-player-Desktop-Debug/
+#	../build-qt-project-Desktop-Debug/
+#	../qt-player/
+#	Makefile
+#	main.o
+#	moc_player.cpp
+#	moc_player.o
+#	player.o
+#	qrc_resources.cpp
+#	qrc_resources.o
+#	qt-project
+#	qt-project.pro.user.0cb5473
+#	qt-project.pro.user.f33db4d
+#	ui_player.h
+#	../simple-audio-player(SFML)/app
+#	../simple-audio-player(SFML)/main.o
+#
+
+*** File '* Startup Log *'
+Processing '/etc/joe/editorrc'...
+Processing '/etc/joe/ftyperc'...
+Finished processing /etc/joe/ftyperc
+Finished processing /etc/joe/editorrc

@@ -6,6 +6,8 @@
 #include <QFileDialog>
 #include <QProgressBar>
 #include <QSlider>
+#include <QAudioProbe>
+#include <QAudioBuffer>
 namespace Ui {
 class Player;
 }
@@ -35,9 +37,12 @@ private slots:
 
     void on_durationChanged(qint64 position);
 
+    void processBuffer(QAudioBuffer buffer_);
+
 private:
     Ui::Player *ui;
     QMediaPlayer *player;
+    QAudioProbe  *probe;
 };
 
 #endif // PLAYER_H

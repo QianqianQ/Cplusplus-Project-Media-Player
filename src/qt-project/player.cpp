@@ -8,9 +8,12 @@ Player::Player(QWidget *parent) :
 {
     ui->setupUi(this);
     player = new QMediaPlayer(this);
+    probe = new QAudioProbe(this);
     connect(player,&QMediaPlayer::positionChanged,this,&Player::on_positionChanged);
     connect(player,&QMediaPlayer::durationChanged,this,&Player::on_durationChanged);
-
+    connect(probe, SIGNAL(audioBufferProbed(QAudioBuffer)), this, SLOT(processBuffer(QAudioBuffer)));
+    probe->setSource(player);
+    qDebug()<<probe->isActive();
 }
 
 Player::~Player()
@@ -61,4 +64,9 @@ void Player::on_positionChanged(qint64 position)
 void Player::on_durationChanged(qint64 position)
 {
     ui->Progress->setMaximum(position);
+}
+
+void Player::processBuffer(QAudioBuffer buffer_)
+{
+    qDebug() << "Hey";
 }
