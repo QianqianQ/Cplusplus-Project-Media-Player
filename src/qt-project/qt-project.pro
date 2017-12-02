@@ -26,10 +26,14 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         main.cpp \
-        player.cpp
+        player.cpp \
+    fft.cpp \
+    fftcalc.cpp
 
 HEADERS += \
-        player.h
+        player.h \
+    fft.h \
+    fftcalc.h
 
 FORMS += \
         player.ui
