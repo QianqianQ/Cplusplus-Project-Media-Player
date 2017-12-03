@@ -6,6 +6,8 @@ qt-project
 Makefile
 .Rhistory
 DEADJOE
+**/qt-project/qt-project.pro.user
 **/build-qt-project-Desktop_Qt_5_5_1_MinGW_32bit-Debug/
-**/build-qt-project-Desktop-Debug/
+**/build-qt-project-Desktop_Qt_5_5_1_GCC_64bit-Debug/
 **/build-qt-project-Desktop_Qt_5_5_1_clang_64bit-Debug/
+**/build-qt-project-Desktop-Debug/
