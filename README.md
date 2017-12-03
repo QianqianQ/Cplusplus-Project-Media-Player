@@ -8,12 +8,17 @@
 
   Progress:
 
+
   Accomplished:
+
+
                 1. Audio browsing & loading from external directories
                 2. Play, Pause, Stop, Seeking, Volume adjustment   
                 3. Previous song, Next song 
 
   Under construction:
+
+  
                     1. GUI design
                     2. Audio visualization
                     3. Playback mode
