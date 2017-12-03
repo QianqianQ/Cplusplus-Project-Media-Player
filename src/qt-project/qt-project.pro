@@ -28,12 +28,16 @@ SOURCES += \
         main.cpp \
         player.cpp \
     fft.cpp \
-    fftcalc.cpp
+    fftcalc.cpp \
+    playlist.cpp \
+    trackfile.cpp
 
 HEADERS += \
         player.h \
     fft.h \
-    fftcalc.h
+    fftcalc.h \
+    playlist.h \
+    trackfile.h
 
 FORMS += \
         player.ui

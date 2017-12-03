@@ -9,6 +9,8 @@
 #include <QAudioProbe>
 #include <QAudioBuffer>
 #include <QVector>
+#include "playlist.h"
+#include "QTimer"
 namespace Ui {
 class Player;
 }
@@ -22,7 +24,11 @@ public:
     ~Player();
 
 private slots:
-    void on_actionOpen_triggered();
+    void on_add_clicked();
+
+    void on_remove_clicked();
+
+    void on_save_clicked();
 
     void on_Play_clicked();
 
@@ -41,8 +47,13 @@ private slots:
     void processBuffer(QAudioBuffer buffer_);
 
 private:
+    void loadTrack();
+    int getIndex();
+    void updateList();
+    Playlist playlist;
     Ui::Player *ui;
-    QMediaPlayer *player;
+    QMediaPlayer *player = new QMediaPlayer;
+    QTimer *updater = new QTimer(this);
     QAudioProbe  *probe;
 
     // Audio Buffer Data
