@@ -18,12 +18,12 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>280</y>
-      <width>441</width>
-      <height>111</height>
+      <y>320</y>
+      <width>451</width>
+      <height>91</height>
      </rect>
     </property>
-    <layout class="QGridLayout" name="gridLayout">
+    <layout class="QGridLayout" name="gridLayout" columnstretch="1,1,1,1">
      <item row="0" column="0" colspan="4">
       <widget class="QSlider" name="Progress">
        <property name="orientation">
@@ -94,33 +94,16 @@
     <property name="geometry">
      <rect>
       <x>11</x>
-      <y>21</y>
-      <width>441</width>
-      <height>201</height>
+      <y>1</y>
+      <width>451</width>
+      <height>271</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout_2" columnstretch="10,1">
-     <item row="0" column="0" rowspan="3">
-      <widget class="QListWidget" name="listWidget">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-      </widget>
-     </item>
      <item row="0" column="1">
       <widget class="QPushButton" name="add">
        <property name="text">
         <string>add</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="1">
-      <widget class="QPushButton" name="remove">
-       <property name="text">
-        <string>remove</string>
        </property>
       </widget>
      </item>
@@ -131,18 +114,35 @@
        </property>
       </widget>
      </item>
+     <item row="1" column="1">
+      <widget class="QPushButton" name="remove">
+       <property name="text">
+        <string>remove</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="0" rowspan="3">
+      <widget class="QListWidget" name="listWidget">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+      </widget>
+     </item>
     </layout>
    </widget>
    <widget class="QWidget" name="">
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>230</y>
-      <width>441</width>
+      <y>280</y>
+      <width>451</width>
       <height>29</height>
      </rect>
     </property>
-    <layout class="QGridLayout" name="gridLayout_3">
+    <layout class="QGridLayout" name="gridLayout_3" columnstretch="2,5,1" columnminimumwidth="1,2,1">
      <item row="0" column="0">
       <widget class="QPushButton" name="previous">
        <property name="text">
@@ -152,8 +152,14 @@
      </item>
      <item row="0" column="1">
       <widget class="QLabel" name="currentSong">
+       <property name="layoutDirection">
+        <enum>Qt::LeftToRight</enum>
+       </property>
        <property name="text">
         <string>TextLabel</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
        </property>
       </widget>
      </item>
