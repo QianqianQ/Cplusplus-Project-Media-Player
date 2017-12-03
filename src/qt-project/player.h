@@ -50,6 +50,8 @@ private slots:
 
     void on_previous_clicked();
 
+    void on_comboBox_currentIndexChanged(int index);
+
 private:
     void loadTrack();
     int getIndex();
@@ -60,6 +62,7 @@ private:
     Playlist *playlist;
     //QTimer *updater;
     QAudioProbe  *probe;
+    int mode;
 
     // Audio Buffer Data
     QByteArray buffer;// buffer for copying audio

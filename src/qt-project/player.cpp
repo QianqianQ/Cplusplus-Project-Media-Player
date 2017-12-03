@@ -77,14 +77,17 @@ void Player::save_list()
 
 void Player::on_Play_clicked()
 {
-    player->stop();
-    int current_row =ui->listWidget->currentRow();
-    QString str = QString::fromStdString(playlist->tracks[current_row].getLocation());
-    player->setMedia(QUrl::fromLocalFile(str));
-    str = QString::fromStdString(playlist->tracks[current_row].getName());
-    ui->currentSong->setText(str);
+    if(player->state()==QMediaPlayer::StoppedState)
+    {
+        int current_row =ui->listWidget->currentRow();
+        QString str = QString::fromStdString(playlist->tracks[current_row].getLocation());
+        player->setMedia(QUrl::fromLocalFile(str));
+        str = QString::fromStdString(playlist->tracks[current_row].getName());
+        ui->currentSong->setText(str);
+    }
     player->play();
     ui->statusBar->showMessage("Playing");
+
 }
 
 void Player::on_Pause_clicked()
@@ -171,4 +174,9 @@ void Player::on_previous_clicked()
     }
     ui->listWidget->setCurrentRow(current_row);
     on_Play_clicked();
+}
+
+void Player::on_comboBox_currentIndexChanged(int index)
+{
+    mode = index;
 }

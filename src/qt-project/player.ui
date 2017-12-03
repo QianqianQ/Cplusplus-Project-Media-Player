@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>485</width>
-    <height>446</height>
+    <width>476</width>
+    <height>471</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -23,8 +23,18 @@
       <height>91</height>
      </rect>
     </property>
-    <layout class="QGridLayout" name="gridLayout" columnstretch="1,1,1,1">
-     <item row="0" column="0" colspan="4">
+    <layout class="QGridLayout" name="gridLayout" columnstretch="1,1,1,1,0">
+     <item row="1" column="1">
+      <widget class="QPushButton" name="Play">
+       <property name="styleSheet">
+        <string notr="true"/>
+       </property>
+       <property name="text">
+        <string>Play</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="0" colspan="5">
       <widget class="QSlider" name="Progress">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
@@ -51,7 +61,7 @@
        </property>
       </widget>
      </item>
-     <item row="1" column="3">
+     <item row="1" column="4">
       <layout class="QVBoxLayout" name="verticalLayout">
        <item>
         <widget class="QSlider" name="Volume">
@@ -78,14 +88,23 @@
        </item>
       </layout>
      </item>
-     <item row="1" column="1">
-      <widget class="QPushButton" name="Play">
-       <property name="styleSheet">
-        <string notr="true"/>
-       </property>
-       <property name="text">
-        <string>Play</string>
-       </property>
+     <item row="1" column="3">
+      <widget class="QComboBox" name="comboBox">
+       <item>
+        <property name="text">
+         <string>once</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>order</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>repeat once</string>
+        </property>
+       </item>
       </widget>
      </item>
     </layout>
@@ -171,7 +190,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>485</width>
+     <width>476</width>
      <height>25</height>
     </rect>
    </property>
