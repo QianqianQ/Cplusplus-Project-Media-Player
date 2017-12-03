@@ -1,9 +1,9 @@
 *.o
 moc_player.cpp
+moc_fftcalc.cpp
 qrc_resources.cpp
 ui_player.h
 qt-project
-Makefile
 .Rhistory
 DEADJOE
 **/qt-project/qt-project.pro.user
