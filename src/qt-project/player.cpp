@@ -141,7 +141,15 @@ void Player::on_Next_clicked()
 {
     player->stop();
     int previous_row =getIndex();
-    int current_row = previous_row+1;
+    int current_row;
+    if(previous_row != ui->listWidget->count()-1)
+    {
+        current_row = previous_row+1;
+    }
+    else
+    {
+        current_row = 0;
+    }
     ui->listWidget->setCurrentRow(current_row);
     on_Play_clicked();
 }
@@ -150,7 +158,15 @@ void Player::on_previous_clicked()
 {
     player->stop();
     int previous_row =getIndex();
-    int current_row = previous_row-1;
+    int current_row;
+    if (previous_row!=0)
+    {
+        current_row = previous_row-1;
+    }
+    else
+    {
+        current_row = ui->listWidget->count()-1;
+    }
     ui->listWidget->setCurrentRow(current_row);
     on_Play_clicked();
 }
