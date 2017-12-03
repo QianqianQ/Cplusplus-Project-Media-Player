@@ -6,15 +6,19 @@
 #include <QFile>
 #include <QMediaContent>
 #include "QFileDialog"
-
+#include "playlist.h"
 
 Player::Player(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::Player)
 {
+
     ui->setupUi(this);
-    updateList();
-    player->setVolume(100);
+    player = new QMediaPlayer;
+    updater = new QTimer(this);
+    playlist = new Playlist();
+    this->updateList();
+    player->setVolume(50);
     ui->listWidget->setCurrentRow(0);
     if(ui->listWidget->count() != 0){
         loadTrack();
@@ -39,7 +43,7 @@ void Player::on_add_clicked()
     QStringList files = QFileDialog::getOpenFileNames(this, tr("Select Music Files"));
     if(!files.empty())
     {
-        playlist.add(files);
+        playlist->add(files);
         updateList();
         ui->save->setChecked(false);
         updater->start();
@@ -48,10 +52,11 @@ void Player::on_add_clicked()
 
 void Player::on_remove_clicked()
 {
+    player->stop();
     int index = getIndex();
     if(index != -1)
     {
-       playlist.remove(index);
+       playlist->remove(index);
        updateList();
        ui->listWidget->setCurrentRow(index);
        ui->save->setChecked(false);
@@ -60,12 +65,18 @@ void Player::on_remove_clicked()
 
 void Player::on_save_clicked()
 {
-    playlist.save();
+    playlist->save();
     ui->save->setChecked(true);
 }
 
 void Player::on_Play_clicked()
 {
+    player->stop();
+    int current_row =ui->listWidget->currentRow();
+    QString str = QString::fromStdString(playlist->tracks[current_row].getLocation());
+    player->setMedia(QUrl::fromLocalFile(str));
+    str = QString::fromStdString(playlist->tracks[current_row].getName());
+    ui->currentSong->setText(str);
     player->play();
     ui->statusBar->showMessage("Playing");
 }
@@ -109,7 +120,7 @@ void Player::processBuffer(QAudioBuffer buffer_)
 void Player::updateList()
 {
     ui->listWidget->clear();
-    ui->listWidget->addItems(playlist.getFileList());
+    ui->listWidget->addItems(playlist->getFileList());
 }
 
 
@@ -120,8 +131,26 @@ int Player::getIndex()
 
 void Player::loadTrack()
 {
-     QString str = QString::fromStdString(playlist.tracks[getIndex()].getLocation());
+     QString str = QString::fromStdString(playlist->tracks[getIndex()].getLocation());
      player->setMedia(QUrl::fromLocalFile(str));
-     str = QString::fromStdString(playlist.tracks[getIndex()].getName());
+     str = QString::fromStdString(playlist->tracks[getIndex()].getName());
      ui->currentSong->setText(str);
+}
+
+void Player::on_Next_clicked()
+{
+    player->stop();
+    int previous_row =getIndex();
+    int current_row = previous_row+1;
+    ui->listWidget->setCurrentRow(current_row);
+    on_Play_clicked();
+}
+
+void Player::on_previous_clicked()
+{
+    player->stop();
+    int previous_row =getIndex();
+    int current_row = previous_row-1;
+    ui->listWidget->setCurrentRow(current_row);
+    on_Play_clicked();
 }

@@ -46,14 +46,19 @@ private slots:
 
     void processBuffer(QAudioBuffer buffer_);
 
+    void on_Next_clicked();
+
+    void on_previous_clicked();
+
 private:
     void loadTrack();
     int getIndex();
     void updateList();
-    Playlist playlist;
+
     Ui::Player *ui;
-    QMediaPlayer *player = new QMediaPlayer;
-    QTimer *updater = new QTimer(this);
+    QMediaPlayer *player;
+    Playlist *playlist;
+    QTimer *updater;
     QAudioProbe  *probe;
 
     // Audio Buffer Data

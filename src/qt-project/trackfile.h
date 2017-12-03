@@ -19,9 +19,9 @@ public:
     void setLocation(string location);
 
 private:
-    string name = "";
+    string name;
 
-    string location = "";
+    string location;
 };
 
 #endif // TRACKFILE_H

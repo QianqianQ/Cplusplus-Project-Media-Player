@@ -1,6 +1,6 @@
 #include "trackfile.h"
 
-Trackfile::Trackfile()
+Trackfile::Trackfile():name(""),location("")
 {
 
 }
