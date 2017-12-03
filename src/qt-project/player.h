@@ -11,6 +11,8 @@
 #include <QVector>
 #include "playlist.h"
 #include "QTimer"
+#include "fftcalc.h"
+
 namespace Ui {
 class Player;
 }
@@ -44,7 +46,9 @@ private slots:
 
     void on_durationChanged(qint64 position);
 
-    void processBuffer(QAudioBuffer buffer_);
+    void processBuffer(QAudioBuffer buffer);
+
+    void processSpectrum(QVector<double> spectrum);
 
     void on_Next_clicked();
 
@@ -68,7 +72,11 @@ private:
     QByteArray buffer;// buffer for copying audio
     QVector<double> sample;// input for fft
     QVector<double> spectrum;// output vector containing spectrum
+    FFTCalc *calculator;
+    double leftLevel, rightLevel;
     //
+signals:
+    int levels(double left, double right);
 };
 
 #endif // PLAYER_H

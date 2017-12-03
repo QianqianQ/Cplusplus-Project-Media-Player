@@ -7,7 +7,8 @@
 #include <QMediaContent>
 #include "QFileDialog"
 #include "playlist.h"
-
+#include <stdio.h>
+#include <string.h>
 Player::Player(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::Player)
@@ -26,10 +27,16 @@ Player::Player(QWidget *parent) :
         //updater->start();
     }
     probe = new QAudioProbe(this);
+    calculator = new FFTCalc(this);
+    qRegisterMetaType< QVector<double> >("QVector<double>");
+
     connect(player,&QMediaPlayer::positionChanged,this,&Player::on_positionChanged);
     connect(player,&QMediaPlayer::durationChanged,this,&Player::on_durationChanged);
     connect(probe, SIGNAL(audioBufferProbed(QAudioBuffer)), this, SLOT(processBuffer(QAudioBuffer)));
+    connect(calculator, SIGNAL(calculatedSpectrum(QVector<double>)), this,
+            SLOT(processSpectrum(QVector<double>)));
     probe->setSource(player);
+
     qDebug()<<probe->isActive();
 }
 
@@ -122,9 +129,75 @@ void Player::on_durationChanged(qint64 position)
     ui->Progress->setMaximum(position);
 }
 
-void Player::processBuffer(QAudioBuffer buffer_)
+void Player::processBuffer(QAudioBuffer buffer)
 {
-    qDebug() << "Hey";
+    qreal audioPeak;
+    int duration;
+    //qDebug() << buffer.format().sampleRate();
+    //qDebug() << SHRT_MAX;
+    if(buffer.frameCount() < SPECSIZE)
+        return;
+    sample.resize(buffer.frameCount());
+
+    if(buffer.format().sampleType() == QAudioFormat::SignedInt){
+      QAudioBuffer::S16S *data = buffer.data<QAudioBuffer::S16S>();
+
+      if (buffer.format().sampleSize() == 32)
+        audioPeak = INT_MAX;
+      else if (buffer.format().sampleSize() == 16)
+        audioPeak = SHRT_MAX;
+      else
+        audioPeak = CHAR_MAX;
+      for(int i=0; i<buffer.frameCount(); i++){
+        sample[i] = data[i].left/audioPeak;
+        leftLevel+= abs(data[i].left)/audioPeak;
+        rightLevel+= abs(data[i].right)/audioPeak;
+      }
+    }
+
+    else if(buffer.format().sampleType() == QAudioFormat::UnSignedInt){
+        QAudioBuffer::S16U *data = buffer.data<QAudioBuffer::S16U>();
+        if (buffer.format().sampleSize() == 32)
+          audioPeak = UINT_MAX;
+        else if (buffer.format().sampleSize() == 16)
+          audioPeak = USHRT_MAX;
+        else
+          audioPeak = UCHAR_MAX;
+
+        for(int i=0; i<buffer.frameCount(); i++){
+          sample[i] = data[i].left/audioPeak;
+          leftLevel+= abs(data[i].left)/audioPeak;
+          rightLevel+= abs(data[i].right)/audioPeak;
+        }
+    }
+
+    else if(buffer.format().sampleType() == QAudioFormat::Float){
+      QAudioBuffer::S32F *data = buffer.data<QAudioBuffer::S32F>();
+      audioPeak = 1.00003;
+      for(int i=0; i<buffer.frameCount(); i++){
+        sample[i] = data[i].left/audioPeak;
+        if(sample[i] != sample[i]){
+          sample[i] = 0;
+        }
+        else{
+          leftLevel+= abs(data[i].left)/audioPeak;
+          rightLevel+= abs(data[i].right)/audioPeak;
+        }
+      }
+    }
+
+    if(probe->isActive()){
+        duration = buffer.format().durationForBytes(buffer.frameCount())/1000;
+        //qDebug() << sample[2];
+        calculator->calc(sample, duration);
+    }
+
+    emit levels(leftLevel/buffer.frameCount(), rightLevel/buffer.frameCount());
+
+}
+void Player::processSpectrum(QVector<double> spectrum)
+{
+    qDebug() << "Spectrum";
 }
 void Player::updateList()
 {
