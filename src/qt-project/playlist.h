@@ -11,6 +11,8 @@ class Playlist
 public:
     Playlist();
 
+    ~Playlist(){}
+
     void add(QStringList files);
 
     void remove(int index);

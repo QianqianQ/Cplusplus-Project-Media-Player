@@ -28,7 +28,7 @@ private slots:
 
     void on_remove_clicked();
 
-    void on_save_clicked();
+    void save_list();
 
     void on_Play_clicked();
 
@@ -58,7 +58,7 @@ private:
     Ui::Player *ui;
     QMediaPlayer *player;
     Playlist *playlist;
-    QTimer *updater;
+    //QTimer *updater;
     QAudioProbe  *probe;
 
     // Audio Buffer Data

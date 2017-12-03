@@ -7,7 +7,7 @@ using namespace std;
 string locationToName(string str)
 {
     string s;
-    int a;
+    unsigned int a;
 
     for(int i = str.size() - 1; i >= 0; i--)
     {
@@ -57,7 +57,7 @@ void Playlist::remove(int a)
 void Playlist::save()
 {
     std::ofstream write("playlist");
-    for(int i = 0; i < tracks.size(); i++){
+    for(unsigned int i = 0; i < tracks.size(); i++){
         write << tracks[i].getLocation() << std::endl;
     }
 }
@@ -65,7 +65,7 @@ void Playlist::save()
 QStringList Playlist::getFileList()
 {
     QStringList list;
-    for(int i = 0; i < tracks.size(); i++)
+    for(unsigned int i = 0; i < tracks.size(); i++)
     {
         QString qstr = QString::fromStdString(tracks[i].getName());
         list.push_back(qstr);

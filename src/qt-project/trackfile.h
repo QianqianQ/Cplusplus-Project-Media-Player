@@ -10,6 +10,8 @@ class Trackfile
 public:
     Trackfile();
 
+    ~Trackfile(){}
+
     string getName();
 
     string getLocation();

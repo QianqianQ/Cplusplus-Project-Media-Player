@@ -15,15 +15,15 @@ Player::Player(QWidget *parent) :
 
     ui->setupUi(this);
     player = new QMediaPlayer;
-    updater = new QTimer(this);
     playlist = new Playlist();
+    //updater = new QTimer(this);
     this->updateList();
     player->setVolume(50);
     ui->listWidget->setCurrentRow(0);
     if(ui->listWidget->count() != 0){
         loadTrack();
-        player->pause();
-        updater->start();
+        //player->stop();
+        //updater->start();
     }
     probe = new QAudioProbe(this);
     connect(player,&QMediaPlayer::positionChanged,this,&Player::on_positionChanged);
@@ -45,28 +45,34 @@ void Player::on_add_clicked()
     {
         playlist->add(files);
         updateList();
-        ui->save->setChecked(false);
-        updater->start();
+        //ui->save->setChecked(false);
+        //updater->start();
+        save_list();
     }
 }
 
 void Player::on_remove_clicked()
 {
-    player->stop();
+    //on_Stop_clicked();
     int index = getIndex();
     if(index != -1)
     {
        playlist->remove(index);
        updateList();
-       ui->listWidget->setCurrentRow(index);
-       ui->save->setChecked(false);
+       /*
+       if (index !=0)
+            ui->listWidget->setCurrentRow(index-1);
+       else
+           ui->listWidget->setCurrentRow(0); */
+       //ui->save->setChecked(false);
+       save_list();
     }
 }
 
-void Player::on_save_clicked()
+void Player::save_list()
 {
     playlist->save();
-    ui->save->setChecked(true);
+    //ui->save->setChecked(true);
 }
 
 void Player::on_Play_clicked()
@@ -142,12 +148,10 @@ void Player::on_Next_clicked()
     player->stop();
     int previous_row =getIndex();
     int current_row;
-    if(previous_row != ui->listWidget->count()-1)
-    {
+    if(previous_row != ui->listWidget->count()-1){
         current_row = previous_row+1;
     }
-    else
-    {
+    else{
         current_row = 0;
     }
     ui->listWidget->setCurrentRow(current_row);
@@ -159,12 +163,10 @@ void Player::on_previous_clicked()
     player->stop();
     int previous_row =getIndex();
     int current_row;
-    if (previous_row!=0)
-    {
+    if (previous_row!=0){
         current_row = previous_row-1;
     }
-    else
-    {
+    else{
         current_row = ui->listWidget->count()-1;
     }
     ui->listWidget->setCurrentRow(current_row);
