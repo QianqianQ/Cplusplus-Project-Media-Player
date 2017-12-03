@@ -6,6 +6,8 @@
 #include <QFile>
 #include <QMediaContent>
 #include "QFileDialog"
+
+
 Player::Player(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::Player)
