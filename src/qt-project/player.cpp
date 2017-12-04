@@ -9,35 +9,71 @@
 #include "playlist.h"
 #include <stdio.h>
 #include <string.h>
+#include <QIcon>
+#include <QPixmap>
 Player::Player(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::Player)
 {
 
     ui->setupUi(this);
+
+    // Setting icons
+    QPixmap play_image(":/images/icons/play.png");
+    QPixmap pause_image(":/images/icons/pause.png");
+    QPixmap stop_image(":/images/icons/stop.png");
+    QPixmap next_image(":/images/icons/next.png");
+    QPixmap previous_image(":/images/icons/previous.png");
+    //QPixmap add_image(":/images/icons/add.png");
+    //QPixmap remove_image(":/images/icons/delete.jpg");
+    QIcon play_icon, pause_icon, stop_icon,next_icon,previous_icon;
+    //QIcon add_icon,remove_icon;
+    play_icon.addPixmap(play_image);
+    pause_icon.addPixmap(pause_image);
+    stop_icon.addPixmap(stop_image);
+    next_icon.addPixmap(next_image);
+    previous_icon.addPixmap(previous_image);
+    //add_icon.addPixmap(add_image);
+    //remove_icon.addPixmap(remove_image);
+    ui->Play->setIcon(play_icon);
+    ui->Play->setIconSize(QSize(50,50));
+    ui->Stop->setIcon(stop_icon);
+    ui->Stop->setIconSize(QSize(50,50));
+    ui->Pause->setIcon(pause_icon);
+    ui->Pause->setIconSize(QSize(50,50));
+    ui->Next->setIcon(next_icon);
+    ui->Next->setIconSize(QSize(50,50));
+    ui->previous->setIcon(previous_icon);
+    ui->previous->setIconSize(QSize(50,50));
+    //ui->add->setIcon(add_icon);
+    //ui->add->setIconSize(QSize(30,30));
+    //ui->remove->setIcon(remove_icon);
+    //ui->remove->setIconSize(QSize(50,30));
+
+    // player and playlist initialization
     player = new QMediaPlayer;
     playlist = new Playlist();
-    //updater = new QTimer(this);
     this->updateList();
     player->setVolume(50);
     ui->listWidget->setCurrentRow(0);
     if(ui->listWidget->count() != 0){
         loadTrack();
-        //player->stop();
-        //updater->start();
     }
+
+    // Audio visualization initalization
     probe = new QAudioProbe(this);
     calculator = new FFTCalc(this);
     qRegisterMetaType< QVector<double> >("QVector<double>");
+    probe->setSource(player);
+    qDebug()<<probe->isActive();
 
+    // Signals and slots
     connect(player,&QMediaPlayer::positionChanged,this,&Player::on_positionChanged);
     connect(player,&QMediaPlayer::durationChanged,this,&Player::on_durationChanged);
     connect(probe, SIGNAL(audioBufferProbed(QAudioBuffer)), this, SLOT(processBuffer(QAudioBuffer)));
     connect(calculator, SIGNAL(calculatedSpectrum(QVector<double>)), this,
             SLOT(processSpectrum(QVector<double>)));
-    probe->setSource(player);
 
-    qDebug()<<probe->isActive();
 }
 
 Player::~Player()
@@ -45,6 +81,7 @@ Player::~Player()
     delete ui;
 }
 
+// Add file to playlist
 void Player::on_add_clicked()
 {
     QStringList files = QFileDialog::getOpenFileNames(this, tr("Select Music Files"));
@@ -58,6 +95,7 @@ void Player::on_add_clicked()
     }
 }
 
+// Remove file from playlist
 void Player::on_remove_clicked()
 {
     //on_Stop_clicked();
@@ -76,12 +114,14 @@ void Player::on_remove_clicked()
     }
 }
 
+// Save new playlist after adding or deleting file
 void Player::save_list()
 {
     playlist->save();
     //ui->save->setChecked(true);
 }
 
+// Play
 void Player::on_Play_clicked()
 {
     if(player->state()==QMediaPlayer::StoppedState)
@@ -92,42 +132,62 @@ void Player::on_Play_clicked()
         str = QString::fromStdString(playlist->tracks[current_row].getName());
         ui->currentSong->setText(str);
     }
+    if(player->state()==QMediaPlayer::PlayingState)
+    {
+        QString current_url = player->currentMedia().canonicalUrl().toString();
+        int current_row =ui->listWidget->currentRow();
+        QString str = QString::fromStdString(playlist->tracks[current_row].getLocation());
+        if (current_url != str)
+        {
+            player->setMedia(QUrl::fromLocalFile(str));
+            str = QString::fromStdString(playlist->tracks[current_row].getName());
+            ui->currentSong->setText(str);
+        }
+
+    }
     player->play();
     ui->statusBar->showMessage("Playing");
 
 }
 
+// Pause
 void Player::on_Pause_clicked()
 {
     player->pause();
     ui->statusBar->showMessage("Paused");
 }
 
+// Stop
 void Player::on_Stop_clicked()
 {
     player->stop();
     ui->statusBar->showMessage("Stopped");
 }
 
+// Volume adjustment
 void Player::on_Volume_sliderMoved(int position)
 {
     player->setVolume(position);
 }
 
+// Seeking audio position when progress bar moves
 void Player::on_Progress_sliderMoved(int position)
 {
     player->setPosition(position);
 }
 
+// Change progess bar position while audio position changes
 void Player::on_positionChanged(qint64 position)
 {
     ui->Progress->setValue(position);
 }
 
+// Set the maximum value of the progress bar as a new song loaded
 void Player::on_durationChanged(qint64 position)
 {
     ui->Progress->setMaximum(position);
 }
+
 
 void Player::processBuffer(QAudioBuffer buffer)
 {
@@ -195,6 +255,8 @@ void Player::processBuffer(QAudioBuffer buffer)
     emit levels(leftLevel/buffer.frameCount(), rightLevel/buffer.frameCount());
 
 }
+
+// audio visualization in ui
 void Player::processSpectrum(QVector<double> spectrum)
 {
     //qDebug() << "Spectrum";
@@ -210,21 +272,22 @@ void Player::processSpectrum(QVector<double> spectrum)
     ui->spec8000->setValue(spectrum[186]*norm);
     ui->spec16000->setValue(spectrum[371]*norm);
     ui->spec20000->setValue(spectrum[464]*norm);
-
-
 }
+
+// update playlist
 void Player::updateList()
 {
     ui->listWidget->clear();
     ui->listWidget->addItems(playlist->getFileList());
 }
 
-
+// Get current index of the playlist
 int Player::getIndex()
 {
     return ui->listWidget->currentIndex().row();
 }
 
+// load current track
 void Player::loadTrack()
 {
      QString str = QString::fromStdString(playlist->tracks[getIndex()].getLocation());
@@ -233,6 +296,7 @@ void Player::loadTrack()
      ui->currentSong->setText(str);
 }
 
+// Next song
 void Player::on_Next_clicked()
 {
     player->stop();
@@ -248,6 +312,7 @@ void Player::on_Next_clicked()
     on_Play_clicked();
 }
 
+// Previous song
 void Player::on_previous_clicked()
 {
     player->stop();
