@@ -1,13 +1,13 @@
 #include "playlist.h"
 #include <fstream>
 #include "string"
-
+#include <QMessageBox>
 using namespace std;
 
 string locationToName(string str)
 {
     string s;
-    unsigned int a;
+    unsigned int a=0;
 
     for(int i = str.size() - 1; i >= 0; i--)
     {
@@ -48,41 +48,31 @@ void Playlist::add(QStringList files)
             track.setLocation(files[i].toStdString());
             track.setName(locationToName(files[i].toStdString()));
             tracks.push_back(track);
-        }else{
+        }
 
-        for(unsigned int j=0; j<tracks.size();j++ ){
+        else{
 
-            if(tracks[j].getName()!=locationToName(files[i].toStdString())){
-
-                track.setLocation(files[i].toStdString());
-                track.setName(locationToName(files[i].toStdString()));
-            }else{
-                track.setLocation("");
-                track.setName("");
-                j=tracks.size();
-
-
+            for(unsigned int j=0; j<tracks.size();j++ ){
+                if(tracks[j].getName()!=locationToName(files[i].toStdString())){
+                    track.setLocation(files[i].toStdString());
+                    track.setName(locationToName(files[i].toStdString()));
+                }
+                else{
+                    track.setLocation("");
+                    track.setName("");
+                    j=tracks.size();
+                }
             }
-
-
-   }
-
-        if(track.getName()!=""){
-        tracks.push_back(track);
-         }else{
+            if(track.getName()!=""){
+                tracks.push_back(track);
+            }
+            else{
             QMessageBox::information( NULL,
-                                 "Error message",
-                                "This file is already exist in the playlist.");
-        }
-
-        }
-
-
-        }
-
-
-
-
+            "Error message",
+            "This file is already exist in the playlist.");
+            }
+        }  
+     }
 }
 
 void Playlist::remove(int a)
