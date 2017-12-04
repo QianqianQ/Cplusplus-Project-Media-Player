@@ -43,10 +43,46 @@ void Playlist::add(QStringList files)
     for(int i = 0; i < files.size(); i++)
     {
         Trackfile track;
-        track.setLocation(files[i].toStdString());
-        track.setName(locationToName(files[i].toStdString()));
+
+        if(tracks.size()==0){
+            track.setLocation(files[i].toStdString());
+            track.setName(locationToName(files[i].toStdString()));
+            tracks.push_back(track);
+        }else{
+
+        for(unsigned int j=0; j<tracks.size();j++ ){
+
+            if(tracks[j].getName()!=locationToName(files[i].toStdString())){
+
+                track.setLocation(files[i].toStdString());
+                track.setName(locationToName(files[i].toStdString()));
+            }else{
+                track.setLocation("");
+                track.setName("");
+                j=tracks.size();
+
+
+            }
+
+
+   }
+
+        if(track.getName()!=""){
         tracks.push_back(track);
-    }
+         }else{
+            QMessageBox::information( NULL,
+                                 "Error message",
+                                "This file is already exist in the playlist.");
+        }
+
+        }
+
+
+        }
+
+
+
+
 }
 
 void Playlist::remove(int a)
