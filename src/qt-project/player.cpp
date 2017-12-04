@@ -197,7 +197,21 @@ void Player::processBuffer(QAudioBuffer buffer)
 }
 void Player::processSpectrum(QVector<double> spectrum)
 {
-    qDebug() << "Spectrum";
+    //qDebug() << "Spectrum";
+   // qDebug() << spectrum[2];
+    int norm = 1500;
+    ui->spec63->setValue(spectrum[2]*norm);
+    ui->spec125->setValue(spectrum[3]*norm);
+    ui->spec250->setValue(spectrum[6]*norm);
+    ui->spec500->setValue(spectrum[12]*norm);
+    ui->spec1000->setValue(spectrum[24]*norm);
+    ui->spec2000->setValue(spectrum[47]*norm);
+    ui->spec4000->setValue(spectrum[93]*norm);
+    ui->spec8000->setValue(spectrum[186]*norm);
+    ui->spec16000->setValue(spectrum[371]*norm);
+    ui->spec20000->setValue(spectrum[464]*norm);
+
+
 }
 void Player::updateList()
 {
