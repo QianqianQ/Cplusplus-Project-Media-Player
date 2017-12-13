@@ -95,7 +95,7 @@ void Player::on_add_clicked()
     QStringList files = QFileDialog::getOpenFileNames(this, tr("Select Music Files"));
     if(!files.empty())
     {
-        playlist->add(files);
+        playlist->add(current_row,files);
         updateList();
         save_list();
     }
@@ -117,6 +117,12 @@ void Player::on_remove_clicked()
          ui->listWidget->setCurrentRow(index-1);
     else if (ui->listWidget->count()!=0 && index==0)
         ui->listWidget->setCurrentRow(1);
+}
+// update playlist
+void Player::updateList()
+{
+    ui->listWidget->clear();
+    ui->listWidget->addItems(playlist->getFileList());
 }
 
 // Save new playlist after adding or deleting file
@@ -308,12 +314,7 @@ void Player::processSpectrum(QVector<double> spectrum)
     ui->spec20000->setValue(spectrum[464]*norm);
 }
 
-// update playlist
-void Player::updateList()
-{
-    ui->listWidget->clear();
-    ui->listWidget->addItems(playlist->getFileList());
-}
+
 
 // Get current index of the playlist
 int Player::getIndex()

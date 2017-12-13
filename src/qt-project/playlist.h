@@ -13,7 +13,7 @@ public:
 
     ~Playlist(){}
 
-    void add(QStringList files);
+    void add(int current_row, QStringList files);
 
     void remove(int index);
 

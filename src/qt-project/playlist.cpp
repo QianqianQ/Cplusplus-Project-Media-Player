@@ -38,7 +38,7 @@ Playlist::Playlist()
     }
 }
 
-void Playlist::add(QStringList files)
+void Playlist::add(int current_row, QStringList files)
 {
     for(int i = 0; i < files.size(); i++)
     {
@@ -65,6 +65,17 @@ void Playlist::add(QStringList files)
             }
             if(track.getName()!=""){
                 tracks.push_back(track);
+                std::vector<Trackfile> temp;
+                for (unsigned int j=current_row+1;j<tracks.size()-1;j++)
+                {
+                    temp.push_back(tracks[j]);
+                }
+                tracks[current_row+1]=track;
+                for (unsigned int j = 0;j<temp.size();j++)
+                {
+                    tracks[j+current_row+2]=temp[j];
+                }
+
             }
             else{
             QMessageBox::information( NULL,
