@@ -48,6 +48,8 @@ Player::Player(QWidget *parent) :
     ui->previous->setIcon(previous_icon);
     ui->previous->setIconSize(QSize(50,50));
     ui->listWidget->clear();
+    ui->mode->setCurrentIndex(0);
+    mode = ui->mode->currentIndex();
     //ui->add->setIcon(add_icon);
     //ui->add->setIconSize(QSize(30,30));
     //ui->remove->setIcon(remove_icon);
@@ -361,9 +363,9 @@ void Player::on_previous_clicked()
     on_Play_clicked();
 }
 
-void Player::on_comboBox_currentIndexChanged(int index)
+void Player::on_mode_currentIndexChanged(int index)
 {
-  mode = index;
+    mode = index;
 }
 
 void Player::statusChanged(QMediaPlayer::MediaStatus status)
@@ -371,29 +373,59 @@ void Player::statusChanged(QMediaPlayer::MediaStatus status)
     switch (status) {
         case QMediaPlayer::EndOfMedia:
             {
-                if(mode==0)
-                    player->stop();
-                else if (mode==1)
-                    on_Play_clicked();
-                else if (mode==2)
+            // Playlist Loop
+                if (mode==0)
                     on_Next_clicked();
+            // Single Loop
+                if (mode==1)
+                    on_Play_clicked();
+                if (mode==2)
+                {
+                    int current_row =getIndex();
+                    if(current_row==ui->listWidget->count()-1)
+                    {
+                        ui->listWidget->setCurrentRow(0);
+                        on_Stop_clicked();
+                    }
+                    else
+                    {
+                        on_Next_clicked();
+                    }
+                }
+                if(mode==3)
+                    on_Stop_clicked();
+
+                if (mode==4)
+                {
+                    int current_row = getIndex();
+                    int amount = ui->listWidget->count();
+                    int random_row = rand()%amount;
+                    while(random_row == current_row)
+                    {
+                        random_row = rand()%amount;
+                    }
+                    ui->listWidget->setCurrentRow(random_row);
+                    on_Play_clicked();
+                }
                 break;
             }
         case QMediaPlayer::NoMedia:
             {
-            QMessageBox messageBox;
-            messageBox.critical(0,"Error","There is no current media");
-            messageBox.setFixedSize(200,200);
+            QMessageBox::information( NULL,
+            "Error message",
+            "no current media");
             break;
             }
         case QMediaPlayer::InvalidMedia:
             {
-                QMessageBox messageBox;
-                messageBox.critical(0,"Error","The current media cannot be played.");
-                messageBox.setFixedSize(200,200);
+                QMessageBox::information( NULL,
+                "Error message",
+                "The current media cannot be played");
                 break;
             }
         default:
             break;
     }
 }
+
+

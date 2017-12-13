@@ -366,7 +366,7 @@
       <item row="1" column="3">
        <layout class="QGridLayout" name="gridLayout">
         <item row="0" column="0">
-         <widget class="QComboBox" name="comboBox">
+         <widget class="QComboBox" name="mode">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
             <horstretch>0</horstretch>
@@ -375,23 +375,33 @@
           </property>
           <item>
            <property name="text">
-            <string>once</string>
+            <string>List Loop</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>repeat once</string>
+            <string>Single Loop</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>order</string>
+            <string>Play in order</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Single Once</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Random</string>
            </property>
           </item>
          </widget>
         </item>
         <item row="1" column="0">
-         <widget class="QLabel" name="Mode">
+         <widget class="QLabel" name="Mode_label">
           <property name="text">
            <string>Mode</string>
           </property>
