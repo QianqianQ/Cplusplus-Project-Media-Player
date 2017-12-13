@@ -13,6 +13,7 @@
 #include <QPixmap>
 #include <QMessageBox>
 #include <exception>
+#include <QMediaMetaData>
 Player::Player(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::Player)
@@ -50,10 +51,16 @@ Player::Player(QWidget *parent) :
     ui->listWidget->clear();
     ui->mode->setCurrentIndex(0);
     mode = ui->mode->currentIndex();
-    //ui->add->setIcon(add_icon);
-    //ui->add->setIconSize(QSize(30,30));
-    //ui->remove->setIcon(remove_icon);
-    //ui->remove->setIconSize(QSize(50,30));
+    ui->spec63->setValue(0);
+    ui->spec125->setValue(0);
+    ui->spec250->setValue(0);
+    ui->spec500->setValue(0);
+    ui->spec1000->setValue(0);
+    ui->spec2000->setValue(0);
+    ui->spec4000->setValue(0);
+    ui->spec8000->setValue(0);
+    ui->spec16000->setValue(0);
+    ui->spec20000->setValue(0);
 
     // player and playlist initialization
     player = new QMediaPlayer;
@@ -437,6 +444,8 @@ void Player::statusChanged(QMediaPlayer::MediaStatus status)
                 "The current media cannot be played");
                 break;
             }
+    case QMediaPlayer::LoadedMedia:
+            display_metadata();
         default:
             break;
     }
@@ -459,5 +468,21 @@ void Player::stateChanged(QMediaPlayer::State s)
     {
         ui->Pause->setEnabled(true);
         ui->Stop->setEnabled(true);
+    }
+}
+
+void Player::display_metadata()
+{
+    if(player->isMetaDataAvailable())
+    {
+        QString album = player->metaData(QMediaMetaData::AlbumTitle).toString();
+        QString author = player->metaData(QMediaMetaData::Author).toString();
+        setWindowTitle(QString("%1 | %2").arg(album).arg(author));
+    }
+    else
+    {
+        int current_row = getIndex();
+        QString str = QString::fromStdString(playlist->tracks[current_row].getName());
+        setWindowTitle(str);
     }
 }

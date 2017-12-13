@@ -61,6 +61,8 @@ private slots:
 
     void stateChanged(QMediaPlayer::State s);
 
+    void display_metadata();
+
 
 private:
     void loadTrack();
