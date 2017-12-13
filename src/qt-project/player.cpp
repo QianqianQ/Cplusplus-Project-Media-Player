@@ -11,6 +11,8 @@
 #include <string.h>
 #include <QIcon>
 #include <QPixmap>
+#include <QMessageBox>
+#include <exception>
 Player::Player(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::Player)
@@ -73,6 +75,7 @@ Player::Player(QWidget *parent) :
     connect(probe, SIGNAL(audioBufferProbed(QAudioBuffer)), this, SLOT(processBuffer(QAudioBuffer)));
     connect(calculator, SIGNAL(calculatedSpectrum(QVector<double>)), this,
             SLOT(processSpectrum(QVector<double>)));
+    connect(player, &QMediaPlayer::mediaStatusChanged, this, &Player::statusChanged);
 
 }
 
@@ -124,6 +127,15 @@ void Player::save_list()
 // Play
 void Player::on_Play_clicked()
 {
+   if(playlist->tracks.size()==0)
+   {
+       QMessageBox::information( NULL,
+       "Error message",
+       "No media in the playlist!");
+   }
+   else
+   {
+    try{
     if(player->state()==QMediaPlayer::StoppedState)
     {
         int current_row =ui->listWidget->currentRow();
@@ -147,9 +159,15 @@ void Player::on_Play_clicked()
     }
     player->play();
     ui->statusBar->showMessage("Playing");
-
+    }
+    catch(std::exception& e)
+        {
+       QMessageBox::information( NULL,
+       "Error message",
+       "An error occured!");
+        }
+    }
 }
-
 // Pause
 void Player::on_Pause_clicked()
 {
@@ -161,6 +179,16 @@ void Player::on_Pause_clicked()
 void Player::on_Stop_clicked()
 {
     player->stop();
+    ui->spec63->setValue(0);
+    ui->spec125->setValue(0);
+    ui->spec250->setValue(0);
+    ui->spec500->setValue(0);
+    ui->spec1000->setValue(0);
+    ui->spec2000->setValue(0);
+    ui->spec4000->setValue(0);
+    ui->spec8000->setValue(0);
+    ui->spec16000->setValue(0);
+    ui->spec20000->setValue(0);
     ui->statusBar->showMessage("Stopped");
 }
 
@@ -330,5 +358,37 @@ void Player::on_previous_clicked()
 
 void Player::on_comboBox_currentIndexChanged(int index)
 {
-    mode = index;
+  mode = index;
+}
+
+void Player::statusChanged(QMediaPlayer::MediaStatus status)
+{
+    switch (status) {
+        case QMediaPlayer::EndOfMedia:
+            {
+                if(mode==0)
+                    player->stop();
+                else if (mode==1)
+                    on_Play_clicked();
+                else if (mode==2)
+                    on_Next_clicked();
+                break;
+            }
+        case QMediaPlayer::NoMedia:
+            {
+            QMessageBox messageBox;
+            messageBox.critical(0,"Error","There is no current media");
+            messageBox.setFixedSize(200,200);
+            break;
+            }
+        case QMediaPlayer::InvalidMedia:
+            {
+                QMessageBox messageBox;
+                messageBox.critical(0,"Error","The current media cannot be played.");
+                messageBox.setFixedSize(200,200);
+                break;
+            }
+        default:
+            break;
+    }
 }

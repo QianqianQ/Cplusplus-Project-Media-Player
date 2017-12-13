@@ -380,12 +380,12 @@
           </item>
           <item>
            <property name="text">
-            <string>order</string>
+            <string>repeat once</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>repeat once</string>
+            <string>order</string>
            </property>
           </item>
          </widget>

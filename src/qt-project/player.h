@@ -56,6 +56,8 @@ private slots:
 
     void on_comboBox_currentIndexChanged(int index);
 
+    void statusChanged(QMediaPlayer::MediaStatus status);
+
 private:
     void loadTrack();
     int getIndex();
