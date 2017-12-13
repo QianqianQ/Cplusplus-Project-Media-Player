@@ -27,17 +27,13 @@ Player::Player(QWidget *parent) :
     QPixmap stop_image(":/images/icons/stop.png");
     QPixmap next_image(":/images/icons/next.png");
     QPixmap previous_image(":/images/icons/previous.png");
-    //QPixmap add_image(":/images/icons/add.png");
-    //QPixmap remove_image(":/images/icons/delete.jpg");
     QIcon play_icon, pause_icon, stop_icon,next_icon,previous_icon;
-    //QIcon add_icon,remove_icon;
     play_icon.addPixmap(play_image);
     pause_icon.addPixmap(pause_image);
     stop_icon.addPixmap(stop_image);
     next_icon.addPixmap(next_image);
     previous_icon.addPixmap(previous_image);
-    //add_icon.addPixmap(add_image);
-    //remove_icon.addPixmap(remove_image);
+
     ui->Play->setIcon(play_icon);
     ui->Play->setIconSize(QSize(50,50));
     ui->Stop->setIcon(stop_icon);
@@ -51,6 +47,7 @@ Player::Player(QWidget *parent) :
     ui->listWidget->clear();
     ui->mode->setCurrentIndex(0);
     mode = ui->mode->currentIndex();
+<<<<<<< HEAD
     ui->spec63->setValue(0);
     ui->spec125->setValue(0);
     ui->spec250->setValue(0);
@@ -61,6 +58,8 @@ Player::Player(QWidget *parent) :
     ui->spec8000->setValue(0);
     ui->spec16000->setValue(0);
     ui->spec20000->setValue(0);
+=======
+>>>>>>> 13b929d6a350e9e5852386fb4a18a7561f423054
 
     // player and playlist initialization
     player = new QMediaPlayer;

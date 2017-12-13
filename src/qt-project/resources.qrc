@@ -3,10 +3,7 @@
         <file>icons/pause.png</file>
         <file>icons/play.png</file>
         <file>icons/stop.png</file>
-        <file>icons/open.png</file>
-        <file>icons/delete.jpg</file>
         <file>icons/next.png</file>
         <file>icons/previous.png</file>
-        <file>icons/add.png</file>
     </qresource>
 </RCC>
