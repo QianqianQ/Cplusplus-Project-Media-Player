@@ -70,7 +70,7 @@ Player::Player(QWidget *parent) :
     calculator = new FFTCalc(this);
     qRegisterMetaType< QVector<double> >("QVector<double>");
     probe->setSource(player);
-    qDebug()<<probe->isActive();
+    //qDebug()<<probe->isActive();
 
     // Signals and slots
     connect(player,&QMediaPlayer::positionChanged,this,&Player::on_positionChanged);
@@ -335,15 +335,15 @@ void Player::loadTrack()
 void Player::on_Next_clicked()
 {
     player->stop();
-    int previous_row =getIndex();
-    int current_row;
-    if(previous_row != ui->listWidget->count()-1){
-        current_row = previous_row+1;
+    int current_row =getIndex();
+    int next_row;
+    if(current_row != ui->listWidget->count()-1){
+        next_row = current_row+1;
     }
     else{
-        current_row = 0;
+        next_row = 0;
     }
-    ui->listWidget->setCurrentRow(current_row);
+    ui->listWidget->setCurrentRow(next_row);
     on_Play_clicked();
 }
 
