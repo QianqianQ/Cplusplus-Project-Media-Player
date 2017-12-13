@@ -47,6 +47,7 @@ Player::Player(QWidget *parent) :
     ui->Next->setIconSize(QSize(50,50));
     ui->previous->setIcon(previous_icon);
     ui->previous->setIconSize(QSize(50,50));
+    ui->listWidget->clear();
     //ui->add->setIcon(add_icon);
     //ui->add->setIconSize(QSize(30,30));
     //ui->remove->setIcon(remove_icon);
@@ -87,15 +88,15 @@ Player::~Player()
 // Add file to playlist
 void Player::on_add_clicked()
 {
+    int current_row = ui->listWidget->currentRow();
     QStringList files = QFileDialog::getOpenFileNames(this, tr("Select Music Files"));
     if(!files.empty())
     {
         playlist->add(files);
         updateList();
-        //ui->save->setChecked(false);
-        //updater->start();
         save_list();
     }
+    ui->listWidget->setCurrentRow(current_row);
 }
 
 // Remove file from playlist
@@ -127,7 +128,7 @@ void Player::save_list()
 // Play
 void Player::on_Play_clicked()
 {
-   if(playlist->tracks.size()==0)
+   if(ui->listWidget->count()==0)
    {
        QMessageBox::information( NULL,
        "Error message",
@@ -138,6 +139,10 @@ void Player::on_Play_clicked()
     try{
     if(player->state()==QMediaPlayer::StoppedState)
     {
+        if (ui->listWidget->count()==1)
+        {
+            ui->listWidget->setCurrentRow(0);
+        }
         int current_row =ui->listWidget->currentRow();
         QString str = QString::fromStdString(playlist->tracks[current_row].getLocation());
         player->setMedia(QUrl::fromLocalFile(str));
@@ -178,7 +183,6 @@ void Player::on_Pause_clicked()
 // Stop
 void Player::on_Stop_clicked()
 {
-    player->stop();
     ui->spec63->setValue(0);
     ui->spec125->setValue(0);
     ui->spec250->setValue(0);
@@ -189,6 +193,7 @@ void Player::on_Stop_clicked()
     ui->spec8000->setValue(0);
     ui->spec16000->setValue(0);
     ui->spec20000->setValue(0);
+    player->stop();
     ui->statusBar->showMessage("Stopped");
 }
 
