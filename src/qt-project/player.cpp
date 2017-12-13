@@ -373,12 +373,13 @@ void Player::statusChanged(QMediaPlayer::MediaStatus status)
     switch (status) {
         case QMediaPlayer::EndOfMedia:
             {
-            // Playlist Loop
+                // Playlist Loop
                 if (mode==0)
                     on_Next_clicked();
-            // Single Loop
+                // Single Loop
                 if (mode==1)
                     on_Play_clicked();
+                // Playlist in order
                 if (mode==2)
                 {
                     int current_row =getIndex();
@@ -386,15 +387,28 @@ void Player::statusChanged(QMediaPlayer::MediaStatus status)
                     {
                         ui->listWidget->setCurrentRow(0);
                         on_Stop_clicked();
+                        QString str = QString::fromStdString(playlist->tracks[0].getLocation());
+                        player->setMedia(QUrl::fromLocalFile(str));
+                        str = QString::fromStdString(playlist->tracks[0].getName());
+                        ui->currentSong->setText(str);
                     }
                     else
                     {
                         on_Next_clicked();
                     }
                 }
+                // Single Once
                 if(mode==3)
+                {
                     on_Stop_clicked();
+                    int current_row =ui->listWidget->currentRow();
+                    QString str = QString::fromStdString(playlist->tracks[current_row].getLocation());
+                    player->setMedia(QUrl::fromLocalFile(str));
+                    str = QString::fromStdString(playlist->tracks[current_row].getName());
+                    ui->currentSong->setText(str);
+                }
 
+                // Play randomly
                 if (mode==4)
                 {
                     int current_row = getIndex();
@@ -413,7 +427,7 @@ void Player::statusChanged(QMediaPlayer::MediaStatus status)
             {
             QMessageBox::information( NULL,
             "Error message",
-            "no current media");
+            "No current media");
             break;
             }
         case QMediaPlayer::InvalidMedia:
