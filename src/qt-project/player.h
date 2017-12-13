@@ -59,6 +59,9 @@ private slots:
 
     void on_mode_currentIndexChanged(int index);
 
+    void stateChanged(QMediaPlayer::State s);
+
+
 private:
     void loadTrack();
     int getIndex();

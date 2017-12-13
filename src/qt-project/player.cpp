@@ -79,6 +79,7 @@ Player::Player(QWidget *parent) :
     connect(calculator, SIGNAL(calculatedSpectrum(QVector<double>)), this,
             SLOT(processSpectrum(QVector<double>)));
     connect(player, &QMediaPlayer::mediaStatusChanged, this, &Player::statusChanged);
+    connect(player,&QMediaPlayer::stateChanged,this,&Player::stateChanged);
 
 }
 
@@ -110,14 +111,12 @@ void Player::on_remove_clicked()
     {
        playlist->remove(index);
        updateList();
-       /*
-       if (index !=0)
-            ui->listWidget->setCurrentRow(index-1);
-       else
-           ui->listWidget->setCurrentRow(0); */
-       //ui->save->setChecked(false);
        save_list();
     }
+    if (ui->listWidget->count()!=0 && index!=0)
+         ui->listWidget->setCurrentRow(index-1);
+    else if (ui->listWidget->count()!=0 && index==0)
+        ui->listWidget->setCurrentRow(1);
 }
 
 // Save new playlist after adding or deleting file
@@ -442,4 +441,22 @@ void Player::statusChanged(QMediaPlayer::MediaStatus status)
     }
 }
 
+void Player::stateChanged(QMediaPlayer::State s)
+{
+    if (s==QMediaPlayer::StoppedState )
+    {
+        ui->Pause->setEnabled(false);
+        ui->Stop->setEnabled(false);
+    }
+    else if (s==QMediaPlayer::PausedState)
+    {
+        ui->Pause->setEnabled(false);
+        ui->Stop->setEnabled(true);
 
+    }
+    else if (s==QMediaPlayer::PlayingState)
+    {
+        ui->Pause->setEnabled(true);
+        ui->Stop->setEnabled(true);
+    }
+}
