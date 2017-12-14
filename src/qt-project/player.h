@@ -9,6 +9,7 @@
 #include <QAudioProbe>
 #include <QAudioBuffer>
 #include <QVector>
+#include <QtGlobal>
 #include "playlist.h"
 #include "QTimer"
 #include "fftcalc.h"

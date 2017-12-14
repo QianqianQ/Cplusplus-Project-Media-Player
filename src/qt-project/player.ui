@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>464</width>
+    <width>537</width>
     <height>451</height>
    </rect>
   </property>
@@ -14,23 +14,65 @@
    <string>Media Player</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <layout class="QGridLayout" name="gridLayout_6" rowstretch="6,1,2">
+   <layout class="QGridLayout" name="gridLayout_6" rowstretch="6,0">
     <item row="0" column="0">
      <layout class="QGridLayout" name="gridLayout_4" rowstretch="1,5" columnstretch="5,1">
-      <item row="0" column="0" rowspan="2">
-       <layout class="QGridLayout" name="gridLayout_2">
-        <item row="0" column="0">
-         <widget class="QListWidget" name="listWidget">
+      <item row="0" column="1">
+       <layout class="QGridLayout" name="gridLayout_3">
+        <item row="1" column="0">
+         <widget class="QPushButton" name="remove">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
+          <property name="styleSheet">
+           <string notr="true"/>
+          </property>
+          <property name="text">
+           <string>remove</string>
+          </property>
          </widget>
         </item>
-        <item row="1" column="0">
-         <layout class="QHBoxLayout" name="horizontalLayout" stretch="2,2,2,2,2,2,2,2,2,2">
+        <item row="0" column="0">
+         <widget class="QPushButton" name="add">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="styleSheet">
+           <string notr="true"/>
+          </property>
+          <property name="text">
+           <string>add</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item row="1" column="1">
+       <spacer name="verticalSpacer">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>40</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="0" column="0" rowspan="2">
+       <layout class="QGridLayout" name="gridLayout_2" rowstretch="3,2">
+        <item row="1" column="0" colspan="2">
+         <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,2,2,2,2,2,2,2,2,2,2">
+          <item>
+           <widget class="QListWidget" name="metadata_list"/>
+          </item>
           <item>
            <widget class="QProgressBar" name="spec63">
             <property name="sizePolicy">
@@ -223,147 +265,50 @@
           </item>
          </layout>
         </item>
-       </layout>
-      </item>
-      <item row="0" column="1">
-       <layout class="QGridLayout" name="gridLayout_3">
-        <item row="1" column="0">
-         <widget class="QPushButton" name="remove">
+        <item row="0" column="0" colspan="2">
+         <widget class="QListWidget" name="listWidget">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
-          <property name="styleSheet">
-           <string notr="true"/>
-          </property>
-          <property name="text">
-           <string>remove</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="0">
-         <widget class="QPushButton" name="add">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="styleSheet">
-           <string notr="true"/>
-          </property>
-          <property name="text">
-           <string>add</string>
-          </property>
          </widget>
         </item>
        </layout>
-      </item>
-      <item row="1" column="1">
-       <spacer name="verticalSpacer">
-        <property name="orientation">
-         <enum>Qt::Vertical</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>20</width>
-          <height>40</height>
-         </size>
-        </property>
-       </spacer>
       </item>
      </layout>
     </item>
     <item row="1" column="0">
-     <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="1,5,1">
-      <item>
-       <widget class="QPushButton" name="previous">
-        <property name="styleSheet">
-         <string notr="true">background: transparent;</string>
-        </property>
-        <property name="text">
-         <string/>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLabel" name="currentSong">
-        <property name="layoutDirection">
-         <enum>Qt::LeftToRight</enum>
-        </property>
-        <property name="text">
-         <string>TextLabel</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="Next">
-        <property name="styleSheet">
-         <string notr="true">background: transparent;</string>
-        </property>
-        <property name="text">
-         <string/>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </item>
-    <item row="2" column="0">
      <layout class="QGridLayout" name="gridLayout_5">
-      <item row="1" column="0">
-       <widget class="QPushButton" name="Pause">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">background: transparent;</string>
-        </property>
-        <property name="text">
-         <string/>
-        </property>
-       </widget>
+      <item row="1" column="6">
+       <layout class="QVBoxLayout" name="verticalLayout">
+        <item>
+         <widget class="QSlider" name="Volume">
+          <property name="value">
+           <number>50</number>
+          </property>
+          <property name="sliderPosition">
+           <number>50</number>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="volumeLabel">
+          <property name="text">
+           <string>Volume</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </item>
-      <item row="1" column="1">
-       <widget class="QPushButton" name="Play">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">background: transparent;</string>
-        </property>
-        <property name="text">
-         <string/>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="2">
-       <widget class="QPushButton" name="Stop">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">background: transparent;</string>
-        </property>
-        <property name="text">
-         <string/>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="3">
+      <item row="1" column="5">
        <layout class="QGridLayout" name="gridLayout">
         <item row="0" column="0">
          <widget class="QComboBox" name="mode">
@@ -413,36 +358,77 @@
        </layout>
       </item>
       <item row="1" column="4">
-       <layout class="QVBoxLayout" name="verticalLayout">
-        <item>
-         <widget class="QSlider" name="Volume">
-          <property name="value">
-           <number>50</number>
-          </property>
-          <property name="sliderPosition">
-           <number>50</number>
-          </property>
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLabel" name="volumeLabel">
-          <property name="text">
-           <string>Volume</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
-          </property>
-         </widget>
-        </item>
-       </layout>
+       <widget class="QPushButton" name="Stop">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background: transparent;</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
       </item>
-      <item row="0" column="0" colspan="5">
+      <item row="0" column="0" colspan="7">
        <widget class="QSlider" name="Progress">
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QPushButton" name="Pause">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background: transparent;</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="2">
+       <widget class="QPushButton" name="Play">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background: transparent;</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="3">
+       <widget class="QPushButton" name="Next">
+        <property name="styleSheet">
+         <string notr="true">background: transparent;</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QPushButton" name="previous">
+        <property name="styleSheet">
+         <string notr="true">background: transparent;</string>
+        </property>
+        <property name="text">
+         <string/>
         </property>
        </widget>
       </item>
@@ -455,7 +441,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>464</width>
+     <width>537</width>
      <height>25</height>
     </rect>
    </property>

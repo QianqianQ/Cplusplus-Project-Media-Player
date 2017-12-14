@@ -14,6 +14,9 @@
 #include <QMessageBox>
 #include <exception>
 #include <QMediaMetaData>
+#include <QtGlobal>
+#include <QMediaService>
+#include <QStringList>
 Player::Player(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::Player)
@@ -45,9 +48,9 @@ Player::Player(QWidget *parent) :
     ui->previous->setIcon(previous_icon);
     ui->previous->setIconSize(QSize(50,50));
     ui->listWidget->clear();
+    ui->metadata_list->clear();
     ui->mode->setCurrentIndex(0);
     mode = ui->mode->currentIndex();
-<<<<<<< HEAD
     ui->spec63->setValue(0);
     ui->spec125->setValue(0);
     ui->spec250->setValue(0);
@@ -58,9 +61,6 @@ Player::Player(QWidget *parent) :
     ui->spec8000->setValue(0);
     ui->spec16000->setValue(0);
     ui->spec20000->setValue(0);
-=======
->>>>>>> 13b929d6a350e9e5852386fb4a18a7561f423054
-
     // player and playlist initialization
     player = new QMediaPlayer;
     playlist = new Playlist();
@@ -86,6 +86,7 @@ Player::Player(QWidget *parent) :
             SLOT(processSpectrum(QVector<double>)));
     connect(player, &QMediaPlayer::mediaStatusChanged, this, &Player::statusChanged);
     connect(player,&QMediaPlayer::stateChanged,this,&Player::stateChanged);
+    connect(player, static_cast<void (QMediaPlayer::*)()>(&QMediaPlayer::metaDataChanged), this, &Player::display_metadata);
 
 }
 
@@ -160,7 +161,6 @@ void Player::on_Play_clicked()
         QString str = QString::fromStdString(playlist->tracks[current_row].getLocation());
         player->setMedia(QUrl::fromLocalFile(str));
         str = QString::fromStdString(playlist->tracks[current_row].getName());
-        ui->currentSong->setText(str);
     }
     if(player->state()==QMediaPlayer::PlayingState)
     {
@@ -171,7 +171,6 @@ void Player::on_Play_clicked()
         {
             player->setMedia(QUrl::fromLocalFile(str));
             str = QString::fromStdString(playlist->tracks[current_row].getName());
-            ui->currentSong->setText(str);
         }
 
     }
@@ -334,7 +333,6 @@ void Player::loadTrack()
      QString str = QString::fromStdString(playlist->tracks[getIndex()].getLocation());
      player->setMedia(QUrl::fromLocalFile(str));
      str = QString::fromStdString(playlist->tracks[getIndex()].getName());
-     ui->currentSong->setText(str);
 }
 
 // Next song
@@ -396,7 +394,6 @@ void Player::statusChanged(QMediaPlayer::MediaStatus status)
                         QString str = QString::fromStdString(playlist->tracks[0].getLocation());
                         player->setMedia(QUrl::fromLocalFile(str));
                         str = QString::fromStdString(playlist->tracks[0].getName());
-                        ui->currentSong->setText(str);
                     }
                     else
                     {
@@ -411,7 +408,6 @@ void Player::statusChanged(QMediaPlayer::MediaStatus status)
                     QString str = QString::fromStdString(playlist->tracks[current_row].getLocation());
                     player->setMedia(QUrl::fromLocalFile(str));
                     str = QString::fromStdString(playlist->tracks[current_row].getName());
-                    ui->currentSong->setText(str);
                 }
 
                 // Play randomly
@@ -470,18 +466,17 @@ void Player::stateChanged(QMediaPlayer::State s)
     }
 }
 
+// display metadata
 void Player::display_metadata()
 {
-    if(player->isMetaDataAvailable())
-    {
-        QString album = player->metaData(QMediaMetaData::AlbumTitle).toString();
-        QString author = player->metaData(QMediaMetaData::Author).toString();
-        setWindowTitle(QString("%1 | %2").arg(album).arg(author));
-    }
-    else
-    {
-        int current_row = getIndex();
-        QString str = QString::fromStdString(playlist->tracks[current_row].getName());
-        setWindowTitle(str);
-    }
+    QString title, album, author,genre;
+    ui->metadata_list->clear();
+    title = "Title: "+player->metaData(QMediaMetaData::Title).toString();
+    album = "Album: "+player->metaData(QMediaMetaData::AlbumTitle).toString();
+    author = "Author: "+player->metaData(QMediaMetaData::ContributingArtist).toString();
+    genre = "Genre: "+player->metaData(QMediaMetaData::Genre).toString();
+    QStringList meta_list=(QStringList()<<title<<album<<author<<genre);
+    ui->metadata_list->addItems(meta_list);
+
 }
+
