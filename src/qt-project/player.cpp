@@ -169,6 +169,7 @@ void Player::on_Play_clicked()
         QString str = QString::fromStdString(playlist->tracks[current_row].getLocation());
         player->setMedia(QUrl::fromLocalFile(str));
         str = QString::fromStdString(playlist->tracks[current_row].getName());
+        this->setWindowTitle("Media Player - "+str);
     }
     if(player->state()==QMediaPlayer::PlayingState)
     {
@@ -179,6 +180,7 @@ void Player::on_Play_clicked()
         {
             player->setMedia(QUrl::fromLocalFile(str));
             str = QString::fromStdString(playlist->tracks[current_row].getName());
+            this->setWindowTitle("Media Player - "+str);
         }
 
     }
@@ -341,6 +343,7 @@ void Player::loadTrack()
      QString str = QString::fromStdString(playlist->tracks[getIndex()].getLocation());
      player->setMedia(QUrl::fromLocalFile(str));
      str = QString::fromStdString(playlist->tracks[getIndex()].getName());
+     this->setWindowTitle("Media Player - "+str);
 }
 
 // Next song
@@ -402,6 +405,7 @@ void Player::statusChanged(QMediaPlayer::MediaStatus status)
                         QString str = QString::fromStdString(playlist->tracks[0].getLocation());
                         player->setMedia(QUrl::fromLocalFile(str));
                         str = QString::fromStdString(playlist->tracks[0].getName());
+                        this->setWindowTitle("Media Player - "+str);
                     }
                     else
                     {
@@ -416,6 +420,7 @@ void Player::statusChanged(QMediaPlayer::MediaStatus status)
                     QString str = QString::fromStdString(playlist->tracks[current_row].getLocation());
                     player->setMedia(QUrl::fromLocalFile(str));
                     str = QString::fromStdString(playlist->tracks[current_row].getName());
+                    this->setWindowTitle("Media Player - "+str);
                 }
 
                 // Play randomly
