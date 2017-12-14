@@ -1,25 +1,29 @@
 # Media Player
 
-  * `plan/` -- Project plan
+#### Features
 
-  * `doc/` -- Final documentation
+  * Graphical user interface
+  * Control the audio playback via GUI
+  * Audio browsing & loading from external directories
+  * Displaying audio information by reading metadata
+  * Audio visualization
+  * Support mutiple audio formats
 
-  * `src/` -- C++ source files. There are two players the team built. The player built by SFML can realize the basic functions and has been accomplished. The player built by Qt can realizes some advanced functions besides the basic features. This player is under developing. 
-
-  Progress:
-
-
-  Accomplished:
-
-
-                1. Audio browsing & loading from external directories
-                2. Play, Pause, Stop, Seeking, Volume adjustment   
-                3. Previous song, Next song 
-
-  Under construction:
-
-  
-                    1. GUI design
-                    2. Audio visualization
-                    3. Playback mode
-                    4. Displaying audio information by reading metadata
+#### How to run
+```sh
+$ cd src/qt-project/
+$ make
+$ ./qt-project
+```
+### User guide
+|      Widget     |                 Function                |
+|:---------------:|:---------------------------------------:|
+|   Button Play   |              Play the music             |
+|   Button Pause  |             Pause the music             |
+|   Button Stop   |              Stop the music             |
+|   Button Next   |   Play the next music in the  playlist  |
+| Button Previous | Play the previous music in the playlist |
+| Slider Volume   |     Move the slider to adjust volume    |
+|       Mode      |         Select the playback mode        |
+| Button Add      | Add file(s) to the playlist             |
+| Button Remove   | Remove the selected file from the list  |
