@@ -222,6 +222,7 @@ void Player::on_Pause_clicked()
 // Stop
 void Player::on_Stop_clicked()
 {
+    player->stop();
     ui->spec63->setValue(0);
     ui->spec125->setValue(0);
     ui->spec250->setValue(0);
@@ -232,7 +233,6 @@ void Player::on_Stop_clicked()
     ui->spec8000->setValue(0);
     ui->spec16000->setValue(0);
     ui->spec20000->setValue(0);
-    player->stop();
     ui->statusBar->showMessage("Stopped");
 }
 
@@ -456,18 +456,11 @@ void Player::statusChanged(QMediaPlayer::MediaStatus status)
                 break;
             }
         case QMediaPlayer::NoMedia:
-            {
-            QMessageBox::information( NULL,
-            "Error message",
-            "No current media");
-            ui->metadata_list->clear();
-            break;
-            }
         case QMediaPlayer::InvalidMedia:
             {
                 QMessageBox::information( NULL,
                 "Error message",
-                "The current media cannot be played");
+                "The file unavailable");
                 ui->metadata_list->clear();
                 break;
             }
