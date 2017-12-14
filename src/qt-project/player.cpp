@@ -155,6 +155,7 @@ void Player::on_Play_clicked()
        QMessageBox::information( NULL,
        "Error message",
        "No media in the playlist!");
+       ui->metadata_list->clear();
    }
    else
    {
@@ -443,6 +444,7 @@ void Player::statusChanged(QMediaPlayer::MediaStatus status)
             QMessageBox::information( NULL,
             "Error message",
             "No current media");
+            ui->metadata_list->clear();
             break;
             }
         case QMediaPlayer::InvalidMedia:
@@ -450,10 +452,11 @@ void Player::statusChanged(QMediaPlayer::MediaStatus status)
                 QMessageBox::information( NULL,
                 "Error message",
                 "The current media cannot be played");
+                ui->metadata_list->clear();
                 break;
             }
-    case QMediaPlayer::LoadedMedia:
-            display_metadata();
+    //case QMediaPlayer::LoadedMedia:
+            //display_metadata();
         default:
             break;
     }
