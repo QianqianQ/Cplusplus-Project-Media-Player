@@ -98,15 +98,23 @@ Player::~Player()
 // Add file to playlist
 void Player::on_add_clicked()
 {
-    int current_row = ui->listWidget->currentRow();
-    QStringList files = QFileDialog::getOpenFileNames(this, tr("Select Music Files"));
-    if(!files.empty())
-    {
-        playlist->add(current_row,files);
-        updateList();
-        save_list();
-    }
-    ui->listWidget->setCurrentRow(current_row);
+    int empty_flag=0;
+        int current_row = 0;
+
+        if(ui->listWidget->count()==0)
+            empty_flag=1;
+
+        if (empty_flag==0)
+            current_row = ui->listWidget->currentRow();
+
+        QStringList files = QFileDialog::getOpenFileNames(this, tr("Select Music Files"));
+        if(!files.empty())
+        {
+            playlist->add(current_row,files);
+            updateList();
+            save_list();
+        }
+        ui->listWidget->setCurrentRow(current_row);
 }
 
 // Remove file from playlist
