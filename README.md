@@ -3,7 +3,7 @@
 #### Features
 
   * Graphical user interface
-  * Control the audio playback via GUI: Play, Pause, Stop, Next, Previous, Seeking(by the Processbar)
+  * Control the audio playback via GUI: Play, Pause, Stop, Next, Previous, Seeking(by the progresssbar), Volume adjustment
   * Audio browsing & loading from external directories
   * Playlist listing loaded audio files
   * Displaying audio information by reading metadata
@@ -26,6 +26,7 @@ $ ./player
 |      Button Previous     |    Play the audio music in the playlist   | Refers to the previous one of the file<br> currently selected in the list|
 |        Button Add        |     Add audio file(s) to the playlist     |                                                                       |
 |       Button Remove      |   Remove the selected file<br> from the list  | the audio under playing could not be deleted                      |
+|     Slider Progress_bar  |   Show the progress of the audio under playing. <br>Seek specific position |                                  |
 |       Slider Volume      |      Move the slider to adjust volume     | The default value is 50/100.                                          |
 |       Combobox Mode      |          Select the playback mode         | 5 modes: List loop, Single loop,<br> Play in order, Single once, Random|
 | Listwidget Metadata_list | Display the metadata <br>of the current media | Information contains: Title, Album, Author,Genre                   |
