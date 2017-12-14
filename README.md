@@ -13,7 +13,7 @@
 ```sh
 $ cd src/qt-project/
 $ make
-$ ./qt-project
+$ ./player
 ```
 ### User guide
 |          Widget          |                  Function                 |                                  Note                                 |
@@ -21,8 +21,8 @@ $ ./qt-project
 |        Button Play       |               Play the audio              | A warning will be given under some invalid conditions                 |
 |       Button Pause       |              Pause the audio              | Disabled when media is stopped or has been paused                     |
 |        Button Stop       |               Stop the audio              | Disabled when media has been stopped                                  |
-|        Button Next       |    Play the next audio in the  playlist   | Refers to the next one of the,file currently selected in the list     |
-|      Button Previous     |    Play the audio music in the playlist   | Refers to the previous one of the,file currently selected in the list |
+|        Button Next       |    Play the next audio in the  playlist   | Refers to the next one of the file currently<br> selected in the list     |
+|      Button Previous     |    Play the audio music in the playlist   | Refers to the previous one of the file currently selected in the list |
 |        Button Add        |     Add audio file(s) to the playlist     |                                                                       |
 |       Button Remove      |   Remove the selected file from the list  | Could not remove the audio under playing                              |
 |       Slider Volume      |      Move the slider to adjust volume     | The default value is 50/100.                                          |
