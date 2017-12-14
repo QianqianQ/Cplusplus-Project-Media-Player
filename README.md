@@ -16,14 +16,17 @@ $ make
 $ ./qt-project
 ```
 ### User guide
-|      Widget     |                 Function                |
-|:---------------:|:---------------------------------------:|
-|   Button Play   |              Play the music             |
-|   Button Pause  |             Pause the music             |
-|   Button Stop   |              Stop the music             |
-|   Button Next   |   Play the next music in the  playlist  |
-| Button Previous | Play the previous music in the playlist |
-| Slider Volume   |     Move the slider to adjust volume    |
-|       Mode      |         Select the playback mode        |
-| Button Add      | Add file(s) to the playlist             |
-| Button Remove   | Remove the selected file from the list  |
+|          Widget          |                  Function                 |                                  Note                                 |
+|:------------------------:|:-----------------------------------------:|:---------------------------------------------------------------------:|
+|        Button Play       |               Play the audio              | A warning will be given under some invalid conditions                 |
+|       Button Pause       |              Pause the audio              | Disabled when media is stopped or has been paused                     |
+|        Button Stop       |               Stop the audio              | Disabled when media has been stopped                                  |
+|        Button Next       |    Play the next audio in the  playlist   | Refers to the next one of the,file currently selected in the list     |
+|      Button Previous     |    Play the audio music in the playlist   | Refers to the previous one of the,file currently selected in the list |
+|        Button Add        |     Add audio file(s) to the playlist     |                                                                       |
+|       Button Remove      |   Remove the selected file from the list  | Could not remove the audio under playing                              |
+|       Slider Volume      |      Move the slider to adjust volume     | The default value is 50/100.                                          |
+|       Combobox Mode      |          Select the playback mode         | 5 modes: List loop, Single loop, Play in order,Single once, Random    |
+| Listwidget Metadata_list | Display the metadata of the current media | Information contains: Title, Album, Author,Genre                      |
+|      Bar-group Specs     |  Visualize the music playing in real-time |                                                                       |
+
