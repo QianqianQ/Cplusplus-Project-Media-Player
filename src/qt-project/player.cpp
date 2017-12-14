@@ -124,7 +124,7 @@ int Player::on_remove_clicked()
     int index = ui->listWidget->currentRow();
     if(index != -1)
     {
-        if(player->state()==QMediaPlayer::PlayingState)
+        if(player->state()==QMediaPlayer::PlayingState || player->state()==QMediaPlayer::PausedState)
         {
             QString current_url = player->currentMedia().canonicalUrl().toString();
             QString str = "file://"+QString::fromStdString(playlist->tracks[index].getLocation());
