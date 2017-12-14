@@ -29,7 +29,7 @@ public:
 private slots:
     void on_add_clicked();
 
-    void on_remove_clicked();
+    int on_remove_clicked();
 
     void save_list();
 

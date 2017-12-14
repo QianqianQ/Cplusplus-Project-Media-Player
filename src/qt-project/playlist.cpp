@@ -80,7 +80,7 @@ void Playlist::add(int current_row, QStringList files)
             else{
             QMessageBox::information( NULL,
             "Error message",
-            "This file is already exist in the playlist.");
+            "The file is already exist in the playlist.");
             }
         }  
      }

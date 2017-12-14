@@ -118,20 +118,36 @@ void Player::on_add_clicked()
 }
 
 // Remove file from playlist
-void Player::on_remove_clicked()
+int Player::on_remove_clicked()
 {
     //on_Stop_clicked();
-    int index = getIndex();
+    int index = ui->listWidget->currentRow();
     if(index != -1)
     {
+        if(player->state()==QMediaPlayer::PlayingState)
+        {
+            QString current_url = player->currentMedia().canonicalUrl().toString();
+            QString str = "file://"+QString::fromStdString(playlist->tracks[index].getLocation());
+            //qDebug()<<current_url;
+            //qDebug()<<str;
+            if (current_url == str)
+            {
+                QMessageBox::information( NULL,
+                "Error message",
+                "The music is playing, could not be removed!");
+                return 0;
+            }
+        }
        playlist->remove(index);
        updateList();
        save_list();
+       if (ui->listWidget->count()!=0 && index!=0)
+            ui->listWidget->setCurrentRow(index-1);
+       else if (ui->listWidget->count()!=0 && index==0)
+           ui->listWidget->setCurrentRow(0);
     }
-    if (ui->listWidget->count()!=0 && index!=0)
-         ui->listWidget->setCurrentRow(index-1);
-    else if (ui->listWidget->count()!=0 && index==0)
-        ui->listWidget->setCurrentRow(1);
+    return 0;
+
 }
 // update playlist
 void Player::updateList()
@@ -177,7 +193,7 @@ void Player::on_Play_clicked()
         QString current_url = player->currentMedia().canonicalUrl().toString();
         int current_row =ui->listWidget->currentRow();
         QString str = QString::fromStdString(playlist->tracks[current_row].getLocation());
-        if (current_url != str)
+        if (current_url != ("file://"+str))
         {
             player->setMedia(QUrl::fromLocalFile(str));
             str = QString::fromStdString(playlist->tracks[current_row].getName());
