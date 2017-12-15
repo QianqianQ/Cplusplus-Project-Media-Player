@@ -158,7 +158,7 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		fftcalc.cpp \
 		playlist.cpp \
 		trackfile.cpp
-QMAKE_TARGET  = qt-project
+QMAKE_TARGET  = player
 DESTDIR       = #avoid trailing-slash linebreak
 TARGET        = player
 
