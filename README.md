@@ -9,7 +9,7 @@
   * 5 playback modes: List loop, Single loop,Play in order, Single once, Random
   * Displaying audio information by reading metadata
   * Audio visualization
-  * Support mutiple audio formats
+  * Support multiple audio formats
 
 #### How to run
 The needed external library is Qt5. The version used to develop the project is 5.5.1.
@@ -28,7 +28,7 @@ $ ./player
   - If the file has been added to the playlist, an warning will be given
 * Button "remove" 
   - Removing the selected file from the playlist. 
-  - An warning will be given if the file is under playing
+  - An warning will be given if the file is under playing or paused
 * Button "Play" 
   - Playing the current selected file in the playlist 
   - If the selected file is not playing, the file will be played soon
@@ -54,11 +54,11 @@ $ ./player
 * Slider Progress_bar
   - Showing the progress of the audio under playing
   - Moving it to seek position
-* Combobox Mode
+* Combo-box Mode
   - Select one among 5 playback modes: List loop, Single loop, Play in order, Single once, Random
   - The default mode is List loop 
 * Listwidget Metadata_list
-  - Display the metadata of the current audio
+  - Display the meta-data of the current audio
   - The displayed information includes: Title, Album, Author, Genre  
 * Visualization_bar group
-  - Visualize the audio under playing in real-time
+  - Real-time visualize the audio under playing 
