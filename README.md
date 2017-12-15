@@ -12,6 +12,8 @@
   * Support mutiple audio formats
 
 #### How to run
+The needed external library is Qt5. The version used to develop the project is 5.5.1.
+
 After downloading the tar.gz file of the project and unzipping it:
 ```sh
 $ cd src/qt-project/
@@ -36,15 +38,15 @@ $ ./player
   - The file name of the current media will be showed in the window title
 * Button "Pause" 
   - The audio under playing is paused
-  - It is disabled when the file has been paused or stopped
+  - It is disabled when the audio has been paused or stopped
 * Button "Stop" 
   - The audio under playing is stopped 
-  - It is disabled when the file has been stopped
+  - It is disabled when the audio has been stopped
 * Button "Next" 
-  - Playing the next one file of the file currently selected
+  - Playing the next file of the file currently selected
   - If the selected file is the last in the playlist, the first file in the list will be played
 * Button "Previous"
-  - Playing the previous one file of the file currently selected
+  - Playing the previous file of the file currently selected
   - If the selected file is the first in the playlist, the last file in the list will be played
 * Slider Volume
   - Moving the slider to adjust volume
@@ -57,6 +59,6 @@ $ ./player
   - The default mode is List loop 
 * Listwidget Metadata_list
   - Display the metadata of the current audio
-  - The displayed information includes: Title, Album, Author,Genre  
-* Progress_bar group
+  - The displayed information includes: Title, Album, Author, Genre  
+* Visualization_bar group
   - Visualize the audio under playing in real-time
