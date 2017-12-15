@@ -21,15 +21,16 @@ $ make
 * Button "add"
   - Adding  audio file(s) to the playlist
   - If the playlist is not empty, the file(s) will be added below the file currently selected in the list
-  - If the file has been added, an warning will be given
+  - If the file has been added to the playlist, an warning will be given
 * Button "remove" 
   - Removing the selected file from the playlist. 
   - An warning will be given if the file is under playing
-  - An warning will be given if the file can not be found (e.g. the file has been deleted from local machine or changed its path)
 * Button "Play" 
   - Playing the current selected file in the playlist 
   - If the selected file is not playing, the file will be played soon
   - If the selected file is under playing, there is no effect
+  - An warning will be given if the playlist is empty.
+  - An warning will be given if the file can not be found (e.g. the file has been deleted from local machine or changed its path). (Then you can remove this file from the playlist by clicking "remove")
 * Button "Pause" 
   - The audio under playing is paused
   - It is disabled when the file has been paused or stopped
