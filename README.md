@@ -11,10 +11,12 @@
   * Audio visualization
   * Support mutiple audio formats
 
-#### How to compile
+#### How to run
+After downloading the tar.gz file of the project and unzipping it:
 ```sh
 $ cd src/qt-project/
 $ make
+$ ./player
 ```
 ### User Guide
 
@@ -31,6 +33,7 @@ $ make
   - If the selected file is under playing, there is no effect
   - An warning will be given if the playlist is empty.
   - An warning will be given if the file can not be found (e.g. the file has been deleted from local machine or changed its path). (Then you can remove this file from the playlist by clicking "remove")
+  - The file name of the current media will be showed in the window title
 * Button "Pause" 
   - The audio under playing is paused
   - It is disabled when the file has been paused or stopped
